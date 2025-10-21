@@ -25,5 +25,6 @@ urlpatterns = [
     path('scroll/', views.scroll, name='scroll'),
     path('hello/', views.hello, name='hello'),
     path('posts', views.posts, name='posts'),
+    path('sections/<int:num>', views.section, name='section'),
     path('admin/', admin.site.urls),
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else None)

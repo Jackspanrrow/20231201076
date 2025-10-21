@@ -1,19 +1,22 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.template import loader
 import os
 import time
 
+# 示例文本
+texts = ["Text 1", "Text 2", "Text 3"]
+
 def index(request):
     """渲染index.html页面"""
-    # 获取index.html文件的路径
-    template_path = os.path.join(os.path.dirname(__file__), 'index.html')
-    
-    # 读取HTML文件内容
-    with open(template_path, 'r', encoding='utf-8') as file:
-        html_content = file.read()
-    
-    return HttpResponse(html_content)
+    return render(request, "index.html")
+
+def section(request, num):
+    """返回指定章节的文本内容"""
+    if 1 <= num <= 3:
+        return HttpResponse(texts[num - 1])
+    else:
+        raise Http404("No such section")
 
 def scroll(request):
     """渲染scroll.html页面"""

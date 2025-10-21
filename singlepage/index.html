@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Single Page</title>
+        <style>
+            button {
+                margin: 10px;
+                padding: 5px 10px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            #content {
+                margin: 20px;
+                padding: 15px;
+                border: 1px solid #ccc;
+                min-height: 100px;
+            }
+        </style>
+        <script>
+            // Shows given section
+            function showSection(section) {
+                // Find section text from server
+                fetch(`/sections/${section}`)
+                .then(response => response.text())
+                .then(text => {
+                    // Log text and display on page
+                    console.log(text);
+                    document.querySelector('#content').innerHTML = text;
+                });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add button functionality
+                document.querySelectorAll('button').forEach(button => {
+                    button.onclick = function() {
+                        showSection(this.dataset.section);
+                    };
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <h1>Hello!</h1>
+        <button data-section="1">Section 1</button>
+        <button data-section="2">Section 2</button>
+        <button data-section="3">Section 3</button>
+        <div id="content">
+            点击按钮加载对应章节的内容
+        </div>
+    </body>
+</html>
